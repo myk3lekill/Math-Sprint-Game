@@ -19,11 +19,9 @@ const penaltyTimeEl = document.querySelector('.penalty-time');
 const playAgainBtn = document.querySelector('.play-again');
 
 // Equations
-
-
-// Global Variables
 let questionAmount = 0;
 let equationsArray = [];
+let playerGuessArray = []; 
 
 // Game Page
 let firstNumber = 0;
@@ -34,6 +32,18 @@ const wrongFormat = [];
 // Time
 
 // Scroll
+let valueY = 0;
+
+// Scroll and Store user selection in playGuessArray
+function select(guessedTrue) {
+    console.log('player guess array:', playerGuessArray);
+    // Scroll 80 pixels
+    valueY += 80;
+    itemContainer.scroll(0, valueY);
+    // Add player guess to array
+    return guessedTrue ? playerGuessArray.push('true') : playerGuessArray.push('false'); //Ternary Operator - conditional statement
+}
+
 
 // Display Game Page
 function showGamePage() {
