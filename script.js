@@ -87,8 +87,28 @@ function createEquations() {
 // }
 
 
-// Get the value from our selected radio button
+// Displays 3,2,1 GO!
+function countdownStart() {
+    countdown.textContent = '3';
+    setTimeout(() => {
+        countdown.textContent = '2';
+    }, 1000);
+    setTimeout(() => {
+        countdown.textContent = '1';
+    }, 2000);
+    setTimeout(() => {
+        countdown.textContent = 'GO!';
+    }, 3000)
+}
 
+// Navigate from Splash Page to Countdown Page
+function showCountdown() {
+    countdownPage.hidden = false;
+    splashPage.hidden = true;
+    countdownStart();
+}
+
+// Get the value from our selected radio button
 function getRadioValue() {
     let radioValue;
     radioInputs.forEach((radioInput) => {
@@ -104,6 +124,9 @@ function selectQuestionAmount(e) {
     e.preventDefault(); // prevent refreshing the page
     questionAmount = getRadioValue();
     console.log('question amount', questionAmount);
+    if (questionAmount) {
+        showCountdown();
+    }
 }
 
 // Event Listener on start form clicked select label:
@@ -114,7 +137,6 @@ startForm.addEventListener('click', () => {
         //Add it back if the radio input is checked
         if (radioEl.children[1].checked) {
             radioEl.classList.add('selected-label');
-
         }
     });
 });
