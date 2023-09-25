@@ -46,7 +46,7 @@ function bestScoresToDOM() {
     bestScores.forEach((bestScore, index) => {
         const bestScoreEl = bestScore;
         bestScoreEl.textContent = `${bestScoreArray[index].bestScore}s`
-        console.log(bestScore)
+        //console.log(bestScore)
     });
 }
 
@@ -251,28 +251,46 @@ function populateGamePage() {
   itemContainer.appendChild(bottomSpacer);
 };
 
+// CODE REVIEW: Improve the countdown function
 // Displays 3,2,1 GO!
 function countdownStart() {
-    countdown.textContent = '3';
-    setTimeout(() => {
-        countdown.textContent = '2';
-    }, 1000);
-    setTimeout(() => {
-        countdown.textContent = '1';
-    }, 2000);
-    setTimeout(() => {
-        countdown.textContent = 'GO!';
-    }, 3000)
+    let count = 3; //Set countdown as we want
+    countdown.textContent = count;
+    const timeCountDown = setInterval(() => {
+        count--;
+        if(count === 0) {
+            countdown.textContent = 'Go!'
+        } else if (count === -1) {
+            showGamePage();
+            clearInterval(timeCountDown);
+        } else {
+            countdown.textContent = count;
+        }
+    }, 1000)
+
+    // CODE REVIEW: this code is Fragile: 
+    // countdown.textContent = '3';
+    // setTimeout(() => {
+    //     countdown.textContent = '2';
+    // }, 1000);
+    // setTimeout(() => {
+    //     countdown.textContent = '1';
+    // }, 2000);
+    // setTimeout(() => {
+    //     countdown.textContent = 'GO!';
+    // }, 3000)
 };
 
 // Navigate from Splash Page to Countdown Page
 function showCountdown() {
     countdownPage.hidden = false;
     splashPage.hidden = true;
-    countdownStart();
+    //CODE REVIEW: populate the game page fisrt
     populateGamePage();
-    createEquations();
-    setTimeout(showGamePage, 4000)
+    countdownStart();
+    //CODE REVIEW: remove following functions
+    // createEquations();
+    // setTimeout(showGamePage, 4000)
 };
 
 // Get the value from our selected radio button
